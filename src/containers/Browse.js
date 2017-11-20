@@ -20,16 +20,21 @@ export default class Browse extends Component {
 
     if(!selectedProduct || similarProducs.length <= 1){
       return (
-        <span> No Similar Products Found . . .</span>
+        <section style={browseStyle}>
+          <h2> {selectedProduct.type} </h2>
+          <span> No Similar Products Found . . .</span>
+        </section>
       )
     }
 
     return (
       <section style={browseStyle}>
+        <h2> {selectedProduct.type} </h2>
         {similarProducs.map( product =>
           <ProductListItem
             key={product.url}
             product={product}
+            isSelected={product.url === selectedProduct.url}
             updateProductStamp={this.props.updateProductStamp}
           />
         )}

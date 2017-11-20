@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import getData from './api/getData.js';
-import logo from './logo.svg';
 import './App.css';
 
-import Room from './containers/Room.js';
-import Browse from './containers/Browse.js';
+import RoomSwap from './containers/RoomSwap.js';
 
 export default class App extends Component {
   constructor(props) {
@@ -16,60 +14,39 @@ export default class App extends Component {
       selectedProductIndex : 0,
       products : []
     }
-
-    this.updateProductStamp = this.updateProductStamp.bind(this);
-    this.updateSelectedProductIndex = this.updateSelectedProductIndex.bind(this);
   }
 
   componentWillMount() {
     getData.then(res => {
-      const products = this.createInitalProducts(res.products);
-      this.setState( Object.assign(res, products) );
+      res.products = this.createInitalProducts(res.products);
+      this.setState( Object.assign(res) );
     });
   }
 
+  /*
+   * Sort -> dont use z-index
+   * -- Allows us to click through DOM using the same layer
+   * add first product to similar products
+   */
   createInitalProducts(products) {
-    const newProducts = products.map( product => {
+    return products.sort( (a,b) => {
+      return a.index - b.index;
+    }).map( (product) => {
+      const similar = product.similar_producs;
       const initialProduct = {
         url: product.url,
         price: product.price
-      }
-
-      return product.similar_producs.unshift(initialProduct);
+      };
+      product.similar_producs = [initialProduct].concat(similar)
+      return product;
     });
-    return newProducts;
-  }
-
-  updateProductStamp(newProduct){
-    const productIndex = this.state.selectedProductIndex;
-    const updatedProduct = this.state.products[productIndex];
-
-    this.setState(Object.assign(updatedProduct, newProduct));
-  }
-
-  updateSelectedProductIndex(index){
-    this.setState({selectedProductIndex: index})
   }
 
   render() {
-    // console.log(this.state)
+    console.log(this.state);
     if (this.state.products.length > 0) {
       return (
-        <section className="App">
-          <main>
-            <Room
-              roomType={this.state.room_type}
-              roomPhoto={this.state.room_photo}
-              products={this.state.products}
-              updateSelectedProductIndex={this.updateSelectedProductIndex}
-            />
-
-            <Browse
-              selectedProduct={this.state.products[this.state.selectedProductIndex]}
-              updateProductStamp={this.updateProductStamp}
-            />
-          </main>
-        </section>
+        <RoomSwap products={this.state}/>
       )
     }else{
       return (

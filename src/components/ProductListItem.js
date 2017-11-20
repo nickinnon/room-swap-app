@@ -19,19 +19,22 @@ export default class ProductListItem extends Component {
 
   render() {
     const product = this.props.product;
+    const isSelected = this.props.isSelected;
     const container = {
       display: 'inline-block',
-      position: 'inherit',
+      position: 'relative',
       textAlign: 'center',
       width: '10em',
-      height: '10em'
+      height: '10em',
+      border: isSelected ? '1px Solid red' : '1px Solid rgba(0,0,0,0)'
     };
     const imgStyle = {
       width: '70%',
+      verticalAlign: 'bottom',
       height: 'auto'
     }
 
-    // crossOrigin ignores CORS for Canvas
+    // crossOrigin ignores CORS for Canvas (yes it needs to be here too)
     return (
       <div style={container} onClick={this.onProductSelect}>
         <img
