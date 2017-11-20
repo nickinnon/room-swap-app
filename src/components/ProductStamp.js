@@ -6,11 +6,11 @@ export default class ProductStamp extends Component {
     super(props);
 
     this.onStampTouch = this.onStampTouch.bind(this);
-    this.getPixelCoords = this.getPixelCoords.bind(this);
+    this.selectNextLayer = this.selectNextLayer.bind(this);
   }
 
   onStampTouch(e){
-    this.getPixelCoords(e);
+    this.selectNextLayer(e);
   }
 
   /*
@@ -20,7 +20,7 @@ export default class ProductStamp extends Component {
    * This is a pretty nasty fuction and should be refacored.
    * TODO break into separate component.
    */
-  getPixelCoords(e){
+  selectNextLayer(e){
     this.props.updateSelectedProductIndex(this.props.productIndex);
     const stamp = e.target;
     const ctx = document.createElement('canvas').getContext('2d');
@@ -63,7 +63,7 @@ export default class ProductStamp extends Component {
         style={style}
         crossOrigin='Anonymous'
         src={product.url}
-        onClick={this.getPixelCoords}
+        onClick={this.selectNextLayer}
       />
     );
   }
