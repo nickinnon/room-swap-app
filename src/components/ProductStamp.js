@@ -49,7 +49,6 @@ export default class ProductStamp extends Component {
     const style = {
         margin:0,
         padding:0,
-        border: '3px solid red',
         position: 'absolute',
         left: `${product.left}%`,
         top: `${product.top}%`,
