@@ -31,9 +31,14 @@ export default class ProductListItem extends Component {
       height: 'auto'
     }
 
+    // crossOrigin ignores CORS for Canvas
     return (
       <div style={container} onClick={this.onProductSelect}>
-        <img style={imgStyle} src={product.url}/>
+        <img
+          style={imgStyle}
+          crossOrigin='Anonymous'
+          src={product.url}
+        />
         <div>{this.formatPrice(product.price)}</div>
       </div>
     );

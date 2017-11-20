@@ -28,10 +28,6 @@ export default class App extends Component {
     });
   }
 
-  /*
-   * Add initial product to similar_producs
-   * Can be used if a similar_product is dynamically added
-   */
   createInitalProducts(products) {
     const newProducts = products.map( product => {
       const initialProduct = {
@@ -44,10 +40,6 @@ export default class App extends Component {
     return newProducts;
   }
 
-  /*
-   * Updates productStamp in Room
-   * NOTE object.assign will accomodate API chnages, such as style changes
-   */
   updateProductStamp(newProduct){
     const productIndex = this.state.selectedProductIndex;
     const updatedProduct = this.state.products[productIndex];
@@ -55,32 +47,27 @@ export default class App extends Component {
     this.setState(Object.assign(updatedProduct, newProduct));
   }
 
-  /*
-   * Updates selectedProductIndex
-   */
   updateSelectedProductIndex(index){
     this.setState({selectedProductIndex: index})
   }
 
   render() {
-    console.log(this.state)
+    // console.log(this.state)
     if (this.state.products.length > 0) {
       return (
         <section className="App">
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <h1 className="App-title">Welcome to React</h1>
-          </header>
-
           <main>
-            <Room roomType={this.state.room_type}
-                  roomPhoto={this.state.room_photo}
-                  products={this.state.products}
-                  updateSelectedProductIndex={this.updateSelectedProductIndex}
-                  />
+            <Room
+              roomType={this.state.room_type}
+              roomPhoto={this.state.room_photo}
+              products={this.state.products}
+              updateSelectedProductIndex={this.updateSelectedProductIndex}
+            />
 
-            <Browse selectedProduct={this.state.products[this.state.selectedProductIndex]}
-                    updateProductStamp={this.updateProductStamp}/>
+            <Browse
+              selectedProduct={this.state.products[this.state.selectedProductIndex]}
+              updateProductStamp={this.updateProductStamp}
+            />
           </main>
         </section>
       )

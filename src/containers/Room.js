@@ -24,6 +24,7 @@ export default class Room extends Component {
     const roomStyle = {
       display: 'inline-block',
       position: 'relative',
+      float:'left', // TODO better styles
       width: '50em',
       height: '50em',
       backgroundSize: 'cover',
@@ -31,8 +32,15 @@ export default class Room extends Component {
     };
 
     return (
-      <section className="room-container" style={roomStyle} >
-        {products.map( (product, productIndex) => <ProductStamp key={product.id} product={product} productIndex={productIndex} updateSelectedProductIndex={updateSelectedProductIndex}/>)}
+      <section className="room-container" style={roomStyle}>
+        {products.map( (product, productIndex) =>
+          <ProductStamp
+            key={product.id}
+            product={product}
+            productIndex={productIndex}
+            updateSelectedProductIndex={updateSelectedProductIndex}
+          />
+        )}
       </section>
     );
   }

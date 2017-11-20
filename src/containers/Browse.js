@@ -19,13 +19,19 @@ export default class Browse extends Component {
     };
 
     if(!selectedProduct || similarProducs.length <= 1){
-      return <span> No Similar Products Found . . .</span>
+      return (
+        <span> No Similar Products Found . . .</span>
+      )
     }
 
     return (
       <section style={browseStyle}>
         {similarProducs.map( product =>
-          <ProductListItem key={product.url} product={product} updateProductStamp={this.props.updateProductStamp}/>
+          <ProductListItem
+            key={product.url}
+            product={product}
+            updateProductStamp={this.props.updateProductStamp}
+          />
         )}
       </section>
     );
