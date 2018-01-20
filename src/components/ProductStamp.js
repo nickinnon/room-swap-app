@@ -14,6 +14,7 @@ export default class ProductStamp extends Component {
   }
 
   /*
+   * If a user clicks on transparent area, the client should select the next item that occupies that space in the DOM
    * Checks if pixel alpha val === 0 -> selects component underneath
    * Currently only works if room is at (0,0) in DOM.
    * it will also select the first product on the stack if there is no product under it
